@@ -1,0 +1,35 @@
+name: Dify Time Cue
+
+on:
+  schedule:
+    # This cron expression runs the workflow every day at 7 AM UTC (3 PM Beijing Time)
+    # Adjust the time as needed for your timezone
+    # For example, to run at 3 PM Beijing Time, use '0 7 * * *'
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+env:
+  DIFY_BASE_URL: ${{ secrets.DIFY_BASE_URL }}
+  DIFY_TOKEN: ${{ secrets.DIFY_TOKEN }}
+  DIFY_INPUTS: ${{ secrets.DIFY_INPUTS }}
+  DIFY_RESPONSE_MODE: ${{ secrets.DIFY_RESPONSE_MODE }}
+  DIFY_USER: ${{ secrets.DIFY_USER }}
+
+jobs:
+  run-scheduler:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: yarn install
+      
+    - name: Run scheduler
+      run: yarn dev

@@ -1,5 +1,5 @@
-const { DifyApi } = require('../services/dify-api');
-const { config } = require('../config');
+const { DifyApi } = require('./services/dify-api');
+const { config } = require('./config');
 
 class DifyWorkflowTask {
   constructor(token) {
